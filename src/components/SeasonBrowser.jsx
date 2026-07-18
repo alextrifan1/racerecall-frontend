@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import SessionModal from './SessionModal';
 import styles from './SeasonBrowser.module.css'
 
 export default function SeasonBrowser() {
     const [sessions, setSessions] = useState([]);
     const [year, setYear] = useState(2023);
     const [page, setPage] = useState(0);
+
+    const [selectedSession, setSelectedSession] = useState(null);
 
     useEffect(() => {
         fetch(`http://localhost:8080/api/sessions?year=${year}&page=${page}&size=10`)
@@ -45,7 +48,11 @@ export default function SeasonBrowser() {
 
             <div className={styles.grid}>
                 {sessions.map((session) => (
-                    <div key={session.session_key} className={styles.card}>
+                    <div
+                        key={session.session_key}
+                        className={styles.card}
+                        onClick={() => setSelectedSession(session)}
+                    >
                         <h3 className={styles.title}>{session.session_name}</h3>
                         <p className={styles.detail}><strong>Country:</strong> {session.country_name}</p>
                         <p className={styles.detail}><strong>Date:</strong> {new Date(session.date_start).toLocaleDateString()}</p>
@@ -72,6 +79,11 @@ export default function SeasonBrowser() {
                     Next
                 </button>
             </div>
+
+            <SessionModal
+                session={selectedSession}
+                onClose={() => setSelectedSession(null)}
+            />
 
         </div>
     )
