@@ -30,6 +30,7 @@ export default function SeasonBrowser() {
             <div className={styles.header}>
                 <h2>Formula 1 - {year} Season</h2>
                 <select value={year} onChange={handleYearchange} className={styles.select}>
+                    <option value={2023}>2023</option>
                     <option value={2024}>2024</option>
                     <option value={2025}>2025</option>
                     <option value={2026}>2026</option>
