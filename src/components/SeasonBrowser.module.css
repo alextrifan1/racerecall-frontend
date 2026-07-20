@@ -13,16 +13,61 @@
 .card {
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 15px;
-    background-color: #f9f9f9;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .card:hover {
     transform: translateY(-3px);
-    box-shadow: 4px 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.12);
+}
+
+.cardLocation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.flag {
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+.cardTitle {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #111;
+}
+
+.cardDate {
+    font-size: 0.95rem;
+    color: #555;
+    margin-top: auto;
+}
+
+.sessionPill {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .title {
@@ -74,18 +119,18 @@
     font-size: 1rem;
     border: none;
     border-radius: 6px;
-    background-color: #007bff;
+    background-color: #023047;
     color: white;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
 .button:hover:not(:disabled) {
-    background-color: #0056b3;
+    background-color: #219EBC;
 }
 
 .button:disabled {
-    background-color: #ccc;
+    background-color: #8ECAE6;
     cursor: not-allowed;
 }
 
@@ -93,3 +138,10 @@
     font-weight: bold;
     color: #333;
 }
+
+.cardTitle {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #023047;
+}
+

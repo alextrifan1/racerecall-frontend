@@ -2,11 +2,40 @@ import { useState, useEffect } from 'react';
 import SessionModal from './SessionModal';
 import styles from './SeasonBrowser.module.css'
 
+const getCountryCode = (countryName) => {
+    const map = {
+        "Bahrain": "bh", "Saudi Arabia": "sa", "Australia": "au",
+        "Japan": "jp", "China": "cn", "United States": "us",
+        "Italy": "it", "Monaco": "mc", "Canada": "ca",
+        "Spain": "es", "Austria": "at", "Great Britain": "gb",
+        "Hungary": "hu", "Belgium": "be", "Netherlands": "nl",
+        "Singapore": "sg", "Azerbaijan": "az", "Mexico": "mx",
+        "Brazil": "br", "Qatar": "qa", "United Arab Emirates": "ae"
+    };
+    return map[countryName] || "un";
+};
+
+const formatDateTime = (dateString) => {
+    const date = new Date(dateString);
+    const datePart = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const timePart = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+    return `${datePart} • ${timePart}`;
+};
+
+const getPillColor = (sessionType) => {
+    if (!sessionType) return '#023047';
+    if (sessionType === 'Race') return '#FFB703';
+    if (sessionType.includes('Qualifying')) return '#023047';
+    if (sessionType.includes('Practice')) return '#219EBC';
+    if (sessionType.includes('Sprint')) return '#8ECAE6';
+    return '#023047';
+};
+
+
 export default function SeasonBrowser() {
     const [sessions, setSessions] = useState([]);
     const [year, setYear] = useState(2023);
     const [page, setPage] = useState(0);
-
     const [selectedSession, setSelectedSession] = useState(null);
 
     useEffect(() => {
@@ -53,9 +82,27 @@ export default function SeasonBrowser() {
                         className={styles.card}
                         onClick={() => setSelectedSession(session)}
                     >
-                        <h3 className={styles.title}>{session.session_name}</h3>
-                        <p className={styles.detail}><strong>Country:</strong> {session.country_name}</p>
-                        <p className={styles.detail}><strong>Date:</strong> {new Date(session.date_start).toLocaleDateString()}</p>
+                        <div className={styles.cardLocation}>
+                            <img
+                                src={`https://flagcdn.com/24x18/${getCountryCode(session.country_name)}.png`}
+                                alt={`${session.country_name} flag`}
+                                className={styles.flag}
+                            />
+                            {session.circuit_short_name}
+                        </div>
+
+                        <h3 className={styles.cardTitle}>{session.session_name}</h3>
+
+                        <div className={styles.cardDate}>
+                            {formatDateTime(session.date_start)}
+                        </div>
+
+                        <div
+                            className={styles.sessionPill}
+                            style={{ backgroundColor: getPillColor(session.session_type) }}
+                        >
+                            {session.session_type}
+                        </div>
                     </div>
                 ))}
             </div>
