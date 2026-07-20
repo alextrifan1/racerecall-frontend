@@ -1,4 +1,4 @@
-import SeasonBrowser from './components/SeasonBrowser';
+import SeasonBrowser from './components/SeasonBrowser/SeasonBrowser.jsx';
 
 function App() {
     return (

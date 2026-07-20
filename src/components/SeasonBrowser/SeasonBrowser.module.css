@@ -1,0 +1,259 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #023047;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e1e8ed;
+    padding-bottom: 15px;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.select {
+    padding: 8px 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 2px solid #219EBC;
+    background-color: #ffffff;
+    color: #023047;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.select:hover {
+    border-color: #023047;
+}
+
+/* Weekend Group Container with Rich Hover Lift */
+.weekendGroup {
+    background-color: #ffffff;
+    border: 1px solid rgba(33, 158, 188, 0.15);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(2, 48, 71, 0.03);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.weekendGroup:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(2, 48, 71, 0.08);
+    border-color: rgba(33, 158, 188, 0.3);
+}
+
+.weekendHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #023047;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+}
+
+.flag {
+    width: 28px;
+    height: 21px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+/* Split-screen session strip layout */
+.sessionStrip {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 16px;
+    align-items: stretch;
+}
+
+/* Left side container holding practice and qualifying sessions stacked */
+.practiceQualiStack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Base Session Card */
+.sessionCard {
+    background-color: #f8fbfd;
+    border: 1px solid #e1e8ed;
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Left Accent Strip bound to inline custom property */
+.sessionCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: var(--accent-color);
+    transition: width 0.2s ease;
+}
+
+.sessionCard:hover {
+    background-color: #ffffff;
+    transform: translateY(-3px);
+    border-color: #219EBC;
+    box-shadow: 0 6px 16px rgba(33, 158, 188, 0.15);
+}
+
+.sessionCard:hover::before {
+    width: 7px;
+}
+
+/* --- FEATURED RACE CARD (Right side, tall & prominent with watermark) --- */
+.featuredCard {
+    background: linear-gradient(135deg, #f8fbfd 0%, #fffbf0 100%);
+    border: 1px solid #ffde8a;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.featuredCard .sessionName {
+    font-size: 1.35rem;
+    color: #023047;
+    z-index: 1;
+}
+
+.featuredCard .sessionDate {
+    z-index: 1;
+}
+
+/* Track Watermark Styling for JSX SVG */
+.trackWatermark {
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    width: 140px;
+    height: 140px;
+    stroke: #023047;
+    opacity: 0.06;
+    pointer-events: none;
+}
+
+/* Mobile Responsive Fallback */
+@media (max-width: 768px) {
+    .sessionStrip {
+        grid-template-columns: 1fr;
+    }
+}
+
+.sessionName {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #023047;
+    padding-left: 4px;
+}
+
+.sessionDate {
+    font-size: 0.85rem;
+    color: #55707d;
+    font-weight: 500;
+    padding-left: 4px;
+    margin-top: auto;
+}
+
+/* Pagination Footer */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.pageInfo {
+    font-weight: 600;
+    color: #55707d;
+}
+
+.button {
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    background-color: #FFB703;
+    color: #023047;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.button:hover:not(:disabled) {
+    background-color: #023047;
+    color: #FFB703;
+    transform: translateY(-1px);
+}
+
+.button:disabled {
+    background-color: #f1ebd9;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.errorText {
+    text-align: center;
+    color: #dc3545;
+    font-weight: 500;
+    background-color: #f8d7da;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.loader {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #219EBC; /* Matches your mid-blue accent */
+    background-color: #f8fbfd;
+    border: 1px dashed #b9d8e6;
+    border-radius: 14px;
+    margin-bottom: 22px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
