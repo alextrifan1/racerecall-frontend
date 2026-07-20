@@ -52,3 +52,72 @@
 .button:hover {
     background-color: #0056b3;
 }
+
+.loader {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.sectionTitle {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+}
+
+.weatherGrid {
+    display: flex;
+    gap: 15px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.weatherItem {
+    flex: 1;
+    text-align: center;
+}
+
+.weatherValue {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.weatherLabel {
+    font-size: 0.85rem;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.podiumList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.podiumItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.podiumItem:last-child {
+    border-bottom: none;
+}
+
+.position {
+    font-weight: bold;
+    color: #d4af37;
+    width: 30px;
+}
+
+.podiumItem:nth-child(2) .position { color: #c0c0c0; }
+.podiumItem:nth-child(3) .position { color: #cd7f32; }
