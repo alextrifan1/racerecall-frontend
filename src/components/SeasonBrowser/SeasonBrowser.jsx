@@ -67,7 +67,7 @@ export default function SeasonBrowser() {
                 <span className={styles.pageInfo}>Page {page + 1}</span>
                 <button
                     onClick={() => setPage(page + 1)}
-                    disabled={sessions.length < 20 || loading}
+                    disabled={Object.keys(groupedWeekends).length < 4 || loading}
                     className={styles.button}
                 >
                     Next

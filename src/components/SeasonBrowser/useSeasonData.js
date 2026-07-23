@@ -10,7 +10,7 @@ export function useSeasonData(year, page) {
         setLoading(true);
         setError(null);
 
-        fetch(`http://localhost:8080/api/sessions?year=${year}&page=${page}&size=20`)
+        fetch(`http://localhost:8080/api/sessions?year=${year}&page=${page}&size=4`)
             .then(response => {
                 if (!response.ok) throw new Error("Failed to fetch data");
                 return response.json();
@@ -20,7 +20,7 @@ export function useSeasonData(year, page) {
                 setSessions(rawSessions);
 
                 const grouped = rawSessions.reduce((acc, session) => {
-                    const key = session.location || session.circuit_short_name || "Unknown Circuit";
+                    const key = session.meeting_key || session.circuit_short_name || "Unknown Circuit";
                     if (!acc[key]) {
                         acc[key] = {
                             circuitName: session.circuit_short_name,
