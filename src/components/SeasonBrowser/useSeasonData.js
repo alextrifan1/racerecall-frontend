@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
 export function useSeasonData(year, page) {
     const [sessions, setSessions] = useState([]);
     const [groupedWeekends, setGroupedWeekends] = useState({});
@@ -10,7 +12,7 @@ export function useSeasonData(year, page) {
         setLoading(true);
         setError(null);
 
-        fetch(`http://localhost:8080/api/sessions?year=${year}&page=${page}&size=4`)
+        fetch(`${API_BASE_URL}/api/sessions?year=${year}&page=${page}&size=4`)
             .then(response => {
                 if (!response.ok) throw new Error("Failed to fetch data");
                 return response.json();
