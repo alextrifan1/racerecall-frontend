@@ -4,6 +4,8 @@ import ModalFrame from "./ModalFrame.jsx";
 import WeatherSnapshot from "./WeatherSnapshot.jsx";
 import PodiumList from "./PodiumList.jsx";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
 export default function SessionModal({ session, onClose }) {
     const [details, setDetails] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -12,7 +14,7 @@ export default function SessionModal({ session, onClose }) {
         if (!session) return;
 
         setLoading(true);
-        fetch(`http://localhost:8080/api/sessions/${session.session_key}/details`)
+        fetch(`${API_BASE_URL}/api/sessions/${session.session_key}/details`)
             .then(response => response.json())
             .then(data => {
                 setDetails(data);
