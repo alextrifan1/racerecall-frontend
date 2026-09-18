@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import styles from './Auth.module.css';
 
 export const Register = () => {
     const [username, setUsername] = useState('');
@@ -16,7 +17,6 @@ export const Register = () => {
         e.preventDefault();
         setError('');
 
-        // Client-side confirmation check
         if (password !== confirmPassword) {
             setError('Passwords do not match');
             return;
@@ -36,7 +36,7 @@ export const Register = () => {
             if (err.response) {
                 setError(typeof err.response.data === 'string' ? err.response.data : 'Registration failed');
             } else {
-                setError('Network error or server unreachable');
+                setError('Unable to reach server. Please try again.');
             }
         } finally {
             setLoading(false);
@@ -44,70 +44,68 @@ export const Register = () => {
     };
 
     return (
-        <div style={{ maxWidth: '400px', margin: '2rem auto' }}>
-            <form onSubmit={handleSubmit}>
-                <h2>Create Account</h2>
+        <div className={styles.container}>
+            <div className={styles.card}>
+                <div className={styles.header}>
+                    <span className={styles.brandDot} />
+                    <h1 className={styles.title}>Create account</h1>
+                    <p className={styles.subtitle}>Get started with your telemetry dashboard</p>
+                </div>
 
-                {error && (
-                    <div style={{ color: 'red', marginBottom: '1rem' }}>
-                        {error}
+                {error && <div className={styles.errorMessage}>{error}</div>}
+
+                <form onSubmit={handleSubmit}>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="reg-username">Username</label>
+                        <input
+                            id="reg-username"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Choose a username"
+                            autoComplete="username"
+                            required
+                        />
                     </div>
-                )}
 
-                <div style={{ marginBottom: '1rem' }}>
-                    <label htmlFor="username" style={{ display: 'block', marginBottom: '.5rem' }}>
-                        Username
-                    </label>
-                    <input
-                        id="username"
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-                        required
-                    />
-                </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="reg-password">Password</label>
+                        <input
+                            id="reg-password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="At least 6 characters"
+                            autoComplete="new-password"
+                            required
+                        />
+                    </div>
 
-                <div style={{ marginBottom: '1rem' }}>
-                    <label htmlFor="password" style={{ display: 'block', marginBottom: '.5rem' }}>
-                        Password
-                    </label>
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-                        required
-                    />
-                </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="reg-confirm">Confirm password</label>
+                        <input
+                            id="reg-confirm"
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            placeholder="Repeat your password"
+                            autoComplete="new-password"
+                            required
+                        />
+                    </div>
 
-                <div style={{ marginBottom: '1rem' }}>
-                    <label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: '.5rem' }}>
-                        Confirm Password
-                    </label>
-                    <input
-                        id="confirmPassword"
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-                        required
-                    />
-                </div>
+                    <button type="submit" className={styles.submitBtn} disabled={loading}>
+                        {loading ? 'Creating account...' : 'Create account'}
+                    </button>
+                </form>
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                    style={{ width: '100%', padding: '10px', cursor: 'pointer' }}
-                >
-                    {loading ? 'Creating account...' : 'Register'}
-                </button>
-
-                <p style={{ marginTop: '1rem', textAlign: 'center' }}>
-                    Already have an account? <Link to="/login">Sign in</Link>
+                <p className={styles.footer}>
+                    Already have an account?
+                    <Link to="/login" className={styles.link}>
+                        Sign in
+                    </Link>
                 </p>
-            </form>
+            </div>
         </div>
     );
 };

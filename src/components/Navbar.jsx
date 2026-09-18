@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import styles from './Navbar.module.css';
 
 export const Navbar = () => {
     const { isAuthenticated, username, logout } = useAuth();
@@ -12,52 +13,35 @@ export const Navbar = () => {
     };
 
     return (
-        <nav style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '1rem 2rem',
-            borderBottom: '1px solid #333',
-            backgroundColor: '#1a1a1a',
-            color: '#fff'
-        }}>
-            <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-                <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>
+        <nav className={styles.navbar}>
+            <div className={styles.brandGroup}>
+                <span className={styles.brandDot} />
+                <Link to="/" className={styles.brandLink}>
                     RaceRecall
                 </Link>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                <Link to="/" style={{ color: '#ccc', textDecoration: 'none' }}>
+            <div className={styles.navLinks}>
+                <Link to="/" className={styles.link}>
                     Seasons
                 </Link>
 
                 {isAuthenticated ? (
                     <>
-            <span style={{ color: '#888' }}>
-              User: <strong style={{ color: '#fff' }}>{username}</strong>
-            </span>
-                        <button
-                            onClick={handleLogout}
-                            style={{
-                                padding: '6px 12px',
-                                backgroundColor: '#e10600',
-                                border: 'none',
-                                borderRadius: '4px',
-                                color: '#fff',
-                                cursor: 'pointer',
-                                fontWeight: 'bold'
-                            }}
-                        >
-                            Sign Out
+                        <div className={styles.userBadge}>
+                            <span>Driver:</span>
+                            <span className={styles.userName}>{username}</span>
+                        </div>
+                        <button onClick={handleLogout} className={styles.logoutBtn}>
+                            Sign out
                         </button>
                     </>
                 ) : (
-                    <div style={{ display: 'flex', gap: '1rem' }}>
-                        <Link to="/login" style={{ color: '#fff', textDecoration: 'none' }}>
-                            Sign In
+                    <div className={styles.authGroup}>
+                        <Link to="/login" className={styles.signInLink}>
+                            Sign in
                         </Link>
-                        <Link to="/register" style={{ color: '#e10600', textDecoration: 'none', fontWeight: 'bold' }}>
+                        <Link to="/register" className={styles.registerBtn}>
                             Register
                         </Link>
                     </div>

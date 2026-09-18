@@ -1,0 +1,136 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 65px);
+    width: 100%;
+    background-color: #ffffff; /* match navbar and body */
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.card {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.brandDot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #facc15;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #1c1917;
+    margin: 0 0 0.35rem 0;
+}
+
+.subtitle {
+    font-size: 0.875rem;
+    color: #78716c;
+    margin: 0;
+}
+
+.errorMessage {
+    background-color: #fef2f2;
+    border: 1px solid #fee2e2;
+    color: #dc2626;
+    font-size: 0.85rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+}
+
+.formGroup label {
+    font-size: 0.825rem;
+    font-weight: 500;
+    color: #44403c;
+}
+
+.formGroup input {
+    background-color: #ffffff;
+    border: 1px solid #d6d3d1;
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.925rem;
+    color: #1c1917;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.formGroup input::placeholder {
+    color: #a8a29e;
+}
+
+.formGroup input:focus {
+    border-color: #eab308;
+    box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.25);
+}
+
+.submitBtn {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background-color: #facc15;
+    color: #1c1917;
+    border: 1px solid #eab308;
+    border-radius: 8px;
+    font-size: 0.925rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+    background-color: #eab308;
+}
+
+.submitBtn:active:not(:disabled) {
+    transform: scale(0.99);
+}
+
+.submitBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #78716c;
+}
+
+.link {
+    color: #1c1917;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 0.35rem;
+    border-bottom: 2px solid #facc15;
+}
+
+.link:hover {
+    color: #854d0e;
+}

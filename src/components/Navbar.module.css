@@ -1,0 +1,122 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 2rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e7e5e4;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.brandGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.brandDot {
+    width: 9px;
+    height: 9px;
+    background-color: #facc15;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.brandLink {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #1c1917;
+    text-decoration: none;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #57534e;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.link:hover {
+    color: #1c1917;
+}
+
+.userBadge {
+    font-size: 0.875rem;
+    color: #78716c;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.userName {
+    font-weight: 600;
+    color: #1c1917;
+}
+
+.logoutBtn {
+    padding: 0.45rem 0.85rem;
+    background-color: #f5f5f4;
+    border: 1px solid #e7e5e4;
+    border-radius: 6px;
+    color: #44403c;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.logoutBtn:hover {
+    background-color: #fee2e2;
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.authGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.signInLink {
+    padding: 0.45rem 0.85rem;
+    color: #1c1917;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+
+.signInLink:hover {
+    color: #78716c;
+}
+
+.registerBtn {
+    padding: 0.45rem 0.95rem;
+    background-color: #facc15;
+    border: 1px solid #eab308;
+    border-radius: 6px;
+    color: #1c1917;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.registerBtn:hover {
+    background-color: #eab308;
+}
+
+.registerBtn:active {
+    transform: scale(0.98);
+}
