@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import styles from './Auth.module.css';
@@ -35,7 +35,7 @@ export const Login = () => {
         <div className={styles.container}>
             <div className={styles.card}>
                 <div className={styles.header}>
-                    <span className={styles.brandDot} />
+                    <p className={styles.eyebrow}>RaceRecall // Returning driver</p>
                     <h1 className={styles.title}>Sign in</h1>
                     <p className={styles.subtitle}>Welcome back to RaceRecall</p>
                 </div>

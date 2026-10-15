@@ -1,136 +1,187 @@
+/* Login and Register in the Dotline style: a square panel with a hairline
+   edge, mono labels, pill inputs and a signal pill button. No shadows. */
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 65px);
     width: 100%;
-    background-color: #ffffff; /* match navbar and body */
-    padding: 1.5rem;
-    box-sizing: border-box;
+    padding: var(--space-6) 0;
 }
 
 .card {
     width: 100%;
     max-width: 400px;
-    background-color: #ffffff;
-    border: 1px solid #eaeaea;
-    border-radius: 12px;
-    padding: 2.5rem 2rem;
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
+    background-color: var(--ground);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-none);
+    padding: var(--space-8) var(--space-6);
 }
 
 .header {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-8);
 }
 
-.brandDot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background-color: #facc15;
-    border-radius: 50%;
-    margin-bottom: 1rem;
+.eyebrow {
+    margin-bottom: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
 }
 
 .title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: #1c1917;
-    margin: 0 0 0.35rem 0;
+    margin-bottom: var(--space-3);
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
 }
 
 .subtitle {
-    font-size: 0.875rem;
-    color: #78716c;
-    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--ink-muted);
 }
 
+/* Error: square box with a red edge and a red status dot */
 .errorMessage {
-    background-color: #fef2f2;
-    border: 1px solid #fee2e2;
-    color: #dc2626;
-    font-size: 0.85rem;
-    padding: 0.75rem 0.9rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--signal);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--signal-text);
+}
+
+.errorMessage::before {
+    content: '';
+    flex: none;
+    width: 10px;
+    height: 10px;
+    margin-top: 5px;
+    border-radius: var(--radius-pill);
+    background-color: var(--signal);
 }
 
 .formGroup {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    margin-bottom: 1.25rem;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
 }
 
 .formGroup label {
-    font-size: 0.825rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
     font-weight: 500;
-    color: #44403c;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
 }
 
 .formGroup input {
-    background-color: #ffffff;
-    border: 1px solid #d6d3d1;
-    border-radius: 8px;
-    padding: 0.7rem 0.9rem;
-    font-size: 0.925rem;
-    color: #1c1917;
+    height: 48px;
+    padding: 0 var(--space-4);
+    background-color: var(--ground);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-ui);
+    font-size: 17px;
+    color: var(--ink);
     outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: border-color 0.15s ease;
 }
 
 .formGroup input::placeholder {
-    color: #a8a29e;
+    color: var(--ink-muted);
 }
 
-.formGroup input:focus {
-    border-color: #eab308;
-    box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.25);
+.formGroup input:hover {
+    border-color: var(--ink);
 }
 
+.formGroup input:focus-visible {
+    border-color: var(--ink);
+    outline: 2px solid var(--sky-text);
+    outline-offset: 2px;
+}
+
+/* Primary action: full-width signal pill */
 .submitBtn {
     width: 100%;
-    margin-top: 0.5rem;
-    padding: 0.75rem;
-    background-color: #facc15;
-    color: #1c1917;
-    border: 1px solid #eab308;
-    border-radius: 8px;
-    font-size: 0.925rem;
-    font-weight: 600;
+    height: 48px;
+    margin-top: var(--space-2);
+    background-color: var(--signal);
+    color: var(--on-signal);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-ui);
+    font-size: 17px;
+    font-weight: 400;
     cursor: pointer;
-    transition: background-color 0.15s ease, transform 0.1s ease;
+    transition: background-color 0.15s ease;
 }
 
 .submitBtn:hover:not(:disabled) {
-    background-color: #eab308;
+    background-color: var(--signal-hover);
 }
 
-.submitBtn:active:not(:disabled) {
-    transform: scale(0.99);
+.submitBtn:focus-visible {
+    outline: 2px solid var(--sky-text);
+    outline-offset: 3px;
 }
 
 .submitBtn:disabled {
-    opacity: 0.5;
+    opacity: 0.45;
     cursor: not-allowed;
 }
 
 .footer {
-    margin-top: 2rem;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #78716c;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: var(--space-2);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--ink-muted);
 }
 
+/* Text link: uppercase mono with an underline that turns red on hover */
 .link {
-    color: #1c1917;
-    font-weight: 600;
+    padding-bottom: 2px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
     text-decoration: none;
-    margin-left: 0.35rem;
-    border-bottom: 2px solid #facc15;
+    border-bottom: 1px solid var(--line-strong);
+    transition: border-color 0.15s ease;
 }
 
 .link:hover {
-    color: #854d0e;
+    border-bottom-color: var(--signal);
+}
+
+.link:focus-visible {
+    outline: 2px solid var(--sky-text);
+    outline-offset: 3px;
 }
