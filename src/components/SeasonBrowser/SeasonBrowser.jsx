@@ -5,17 +5,28 @@ import WeekendGroup from './WeekendGroup.jsx';
 import styles from './SeasonBrowser.module.css';
 import {useSeasonData} from "./useSeasonData.js";
 
+const WEEKENDS_PER_PAGE = 4;
+
 export default function SeasonBrowser() {
     const [year, setYear] = useState(2026);
-    const [page, setPage] = useState(0);
+    // null = no page picked yet: open on the page with the next session
+    const [pickedPage, setPickedPage] = useState(null);
     const [selectedSession, setSelectedSession] = useState(null);
 
+    const { weekends, nextSessionKey, loading, error } = useSeasonData(year);
 
-    const { sessions, groupedWeekends, loading, error } = useSeasonData(year, page);
+    const totalPages = Math.max(1, Math.ceil(weekends.length / WEEKENDS_PER_PAGE));
+    const nextWeekendIndex = weekends.findIndex((weekend) =>
+        weekend.sessions.some((session) => session.session_key === nextSessionKey)
+    );
+    const currentRoundPage = nextWeekendIndex >= 0 ? Math.floor(nextWeekendIndex / WEEKENDS_PER_PAGE) : 0;
+    const page = Math.min(pickedPage ?? currentRoundPage, totalPages - 1);
+
+    const pageWeekends = weekends.slice(page * WEEKENDS_PER_PAGE, (page + 1) * WEEKENDS_PER_PAGE);
 
     const handleYearChange = (e) => {
         setYear(parseInt(e.target.value));
-        setPage(0);
+        setPickedPage(null);
     };
 
 
@@ -45,7 +56,7 @@ export default function SeasonBrowser() {
                 </div>
             )}
 
-            {!loading && !error && sessions.length === 0 && (
+            {!loading && !error && weekends.length === 0 && (
                 <p className={styles.status}>
                     No sessions available right now. The API is likely locked due to an active F1 race weekend. Try again later!
                 </p>
@@ -60,10 +71,11 @@ export default function SeasonBrowser() {
                 <div className={styles.listContent}>
                     {!loading && !error && (
                         <div className={styles.weekendList}>
-                            {Object.entries(groupedWeekends).map(([location, weekend]) => (
+                            {pageWeekends.map((weekend) => (
                                 <WeekendGroup
-                                    key={location}
+                                    key={weekend.key}
                                     weekend={weekend}
+                                    nextSessionKey={nextSessionKey}
                                     onSessionClick={setSelectedSession}
                                 />
                             ))}
@@ -72,16 +84,16 @@ export default function SeasonBrowser() {
 
                     <div className={styles.pagination}>
                         <button
-                            onClick={() => setPage(page - 1)}
+                            onClick={() => setPickedPage(page - 1)}
                             disabled={page === 0 || loading}
                             className={styles.button}
                         >
                             Previous
                         </button>
-                        <span className={styles.pageInfo}>Page // {page + 1}</span>
+                        <span className={styles.pageInfo}>Page // {page + 1} of {totalPages}</span>
                         <button
-                            onClick={() => setPage(page + 1)}
-                            disabled={Object.keys(groupedWeekends).length < 4 || loading}
+                            onClick={() => setPickedPage(page + 1)}
+                            disabled={page >= totalPages - 1 || loading}
                             className={styles.button}
                         >
                             Next

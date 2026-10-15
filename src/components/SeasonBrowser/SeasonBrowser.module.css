@@ -156,6 +156,10 @@
     color: var(--ink-muted);
 }
 
+.round {
+    color: var(--ink);
+}
+
 .weekendDetail {
     display: flex;
     align-items: center;
@@ -237,12 +241,34 @@
     color: var(--ink-muted);
 }
 
-/* The race gets one red dot */
+/* A finished Grand Prix gets one red dot */
 .raceDot {
     width: 8px;
     height: 8px;
     border-radius: var(--radius-pill);
     background-color: var(--signal);
+}
+
+/* Not run yet: dashed edge (Dotline's "not yet") */
+.upcomingCard {
+    border-style: dashed;
+}
+
+/* The next session to start: solid ink edge, hollow red ring, red NEXT */
+.nextCard {
+    border-style: solid;
+    border-color: var(--ink);
+}
+
+.nextRing {
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid var(--signal);
+    border-radius: var(--radius-pill);
+}
+
+.statusNext {
+    color: var(--signal-text);
 }
 
 .sessionName {
