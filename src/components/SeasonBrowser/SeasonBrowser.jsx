@@ -8,6 +8,15 @@ import {useSeasonData} from "./useSeasonData.js";
 
 const WEEKENDS_PER_PAGE = 4;
 
+// Seasons in the picker: from the first year OpenF1 has data up to this year,
+// newest first. Worked out once when the file loads.
+const FIRST_SEASON = 2023;
+const CURRENT_SEASON = new Date().getFullYear();
+const SEASONS = Array.from(
+    { length: CURRENT_SEASON - FIRST_SEASON + 1 },
+    (_, i) => CURRENT_SEASON - i
+);
+
 // Session times are shown in the visitor's time zone: say which one.
 // e.g. "Europe/Bucharest" -> "Bucharest", plus the offset, e.g. "GMT+3"
 const TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
@@ -18,7 +27,7 @@ const TIME_ZONE_OFFSET = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short
 const TIME_ZONE_LABEL = [TIME_ZONE_CITY, TIME_ZONE_OFFSET].filter(Boolean).join(', ');
 
 export default function SeasonBrowser() {
-    const [year, setYear] = useState(2026);
+    const [year, setYear] = useState(CURRENT_SEASON);
     // null = no page picked yet: open on the page with the next session
     const [pickedPage, setPickedPage] = useState(null);
     const [selectedSession, setSelectedSession] = useState(null);
@@ -56,10 +65,9 @@ export default function SeasonBrowser() {
                 <label className={styles.selectWrap}>
                     <span className={styles.srOnly}>Season</span>
                     <select value={year} onChange={handleYearChange} className={styles.select}>
-                        <option value={2023}>2023</option>
-                        <option value={2024}>2024</option>
-                        <option value={2025}>2025</option>
-                        <option value={2026}>2026</option>
+                        {SEASONS.map((season) => (
+                            <option key={season} value={season}>{season}</option>
+                        ))}
                     </select>
                 </label>
             </div>
