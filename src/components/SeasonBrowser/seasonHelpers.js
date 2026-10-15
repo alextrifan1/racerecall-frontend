@@ -31,6 +31,9 @@ export const formatDateTime = (dateString) => {
 export const isMainEvent = (session) =>
     session.session_type === 'Race' || session.session_name === 'Sprint';
 
+// OpenF1 names testing sessions "Day 1", "Day 2"...
+const isTestingDay = (session) => /^Day \d+$/i.test(session.session_name ?? '');
+
 // Round number for display: 3 -> "R03"
 export const formatRound = (round) => `R${String(round).padStart(2, '0')}`;
 
@@ -38,8 +41,10 @@ export const formatRound = (round) => `R${String(round).padStart(2, '0')}`;
  * Turns the flat session list from the API into ordered weekends:
  * - sessions grouped by meeting and sorted by start time
  * - weekends sorted by their first session
- * - isTesting: no race and no sprint (e.g. pre-season testing)
- * - round: 1, 2, 3... for race weekends only (testing has no round)
+ * - isTesting: every session is a testing day ("Day 1", "Day 2"...)
+ * - noRace: not testing, but no race and no sprint either (e.g. a race that
+ *   was cancelled after practice)
+ * - round: 1, 2, 3... for weekends with a race (testing and noRace have none)
  * - each session gets `upcoming` (starts after `now`)
  * Also returns the key of the next session to start, or null.
  */
@@ -64,13 +69,14 @@ export const buildSeason = (sessions, now) => {
     const weekends = [...byMeeting.values()];
     for (const weekend of weekends) {
         weekend.sessions.sort((a, b) => a.date_start.localeCompare(b.date_start));
-        weekend.isTesting = !weekend.sessions.some(isMainEvent);
+        weekend.isTesting = weekend.sessions.every(isTestingDay);
+        weekend.noRace = !weekend.isTesting && !weekend.sessions.some(isMainEvent);
     }
     weekends.sort((a, b) => a.sessions[0].date_start.localeCompare(b.sessions[0].date_start));
 
     let round = 0;
     for (const weekend of weekends) {
-        weekend.round = weekend.isTesting ? null : ++round;
+        weekend.round = weekend.isTesting || weekend.noRace ? null : ++round;
     }
 
     const next = weekends

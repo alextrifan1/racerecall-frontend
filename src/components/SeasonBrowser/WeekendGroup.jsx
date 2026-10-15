@@ -42,12 +42,14 @@ export default function WeekendGroup({ weekend, nextSessionKey, onSessionClick }
                     )}
                     {weekend.isTesting
                         ? `Pre-season testing at ${weekend.circuitName}`
-                        : `${weekend.circuitName} Grand Prix`}
+                        : weekend.noRace
+                            ? `${weekend.circuitName} Grand Prix // Race not held`
+                            : `${weekend.circuitName} Grand Prix`}
                 </p>
             </div>
 
-            {weekend.isTesting ? (
-                /* Testing: all sessions in one row, full width */
+            {weekend.isTesting || weekend.noRace ? (
+                /* Testing or no race: all sessions in one row, full width */
                 <div className={styles.testingStrip}>
                     {supportSessions.map((session) => card(session))}
                 </div>
