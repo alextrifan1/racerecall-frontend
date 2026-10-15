@@ -51,13 +51,15 @@ Planned improvements for both repos, plus the gradual move to the Dotline design
 
 ## Frontend ([racerecall-frontend](https://github.com/alextrifan1/racerecall-frontend))
 
+- [ ] **Show the login error instead of reloading the page** · High · S
+  A wrong password returns 401, and the Axios response interceptor in `src/api/axios.js` treats every 401 as an expired token: it clears storage and reloads `/login`, so "Invalid username or password" is never shown. Skip the redirect for `/api/auth/` requests.
 - [ ] **Check that refreshing `/login` works on the live site** · High if broken · S
   There is no `vercel.json`. If refresh gives a 404, add a rewrite rule that sends every path to `index.html`.
-- [ ] **Fix session modal error handling** · High · S
-  - [ ] Clear `details` when a fetch starts or fails (today a failed fetch shows the previous session's data)
-  - [ ] Treat a non-200 response as an error instead of parsing it as data
-  - [ ] Cancel the previous request with an `AbortController` when another session is clicked
-- [ ] **Show the starting grid in the session modal** · High · S
+- [x] **Fix session modal error handling** · High · S
+  - [x] Clear `details` when a fetch starts or fails (today a failed fetch shows the previous session's data)
+  - [x] Treat a non-200 response as an error instead of parsing it as data
+  - [x] Cancel the previous request with an `AbortController` when another session is clicked
+- [x] **Show the starting grid in the session modal** · High · S
   The backend already returns it as `startingGrid`.
 - [ ] **Make the modal keyboard-friendly** · Medium · S
   Close on Escape, `role="dialog"` with `aria-modal`, move focus into the modal when it opens.
@@ -69,15 +71,22 @@ Planned improvements for both repos, plus the gradual move to the Dotline design
   - [ ] Page title `racerecall-frontend` → `RaceRecall`
   - [ ] Delete the unused template assets (`hero.png`, `react.svg`, `vite.svg`)
   - [ ] Generate the year dropdown up to the current year
-  - [ ] Fix "Next" opening an empty page when the last page has exactly 4 weekends
-  - [ ] Fix the existing ESLint errors (mostly unused `React` imports)
+  - [x] Fix "Next" opening an empty page when the last page has exactly 4 weekends
+  - [ ] Fix the remaining ESLint errors (4 left: unused `React` imports in `App.jsx`, `ProtectedRoute.jsx`, `AuthContext.jsx`, and `useAuth` exported next to a component)
 - [ ] **Put state in the URL** · Medium · M
   Year and page as query params so refresh and the back button work; a `/session/:key` route for shareable sessions.
-- [ ] **Loading skeletons** · Low · M
+- [x] **Loading skeletons** · Low · M
 - [ ] **Tests and lint in CI** · Medium · M
   Vitest and React Testing Library, starting with `useSeasonData`'s grouping and the auth forms.
 - [ ] **Favorites page** · Feature · M
   Depends on backend favorites. Uses `ProtectedRoute`.
+- [x] **Season page UI pass**
+  - [x] Whole season loaded once, paged client-side; opens on the page with the next session
+  - [x] Round numbers (`R03 // …`); testing weeks unnumbered and laid out in one row
+  - [x] Upcoming sessions marked (dashed edge, `// Upcoming`); the next one gets a hollow red ring and `// Next`
+  - [x] Upcoming sessions open a "Not run yet" modal instead of a failed request
+  - [x] Track outlines only for circuits that have one (Monaco matched as "Monte Carlo"); race tiles sized to content
+  - [x] Note under the year saying which time zone session times are in
 
 ---
 
@@ -97,5 +106,5 @@ The app moves to the Dotline design system one component per step, staying in th
   Year in Doto as the page's one headline; weekends as listing rows (`09/19 // SINGAPORE`); replace the coloured left strips with a mono session-type label and a red dot for the race; square panels, no shadows.
 - [x] **6. Dot wave** · M
   Animated `DotField` (still pixels when reduced motion is on): behind the sign-in and register pages, and rising behind the last weekends and pagination on the season page. Text always sits on a solid patch, never on the dots.
-- [ ] **7. Dark theme** · S
+- [x] **7. Dark theme** · S
   Switch `data-theme` to `dark` in `index.html`; check every page in both themes.
