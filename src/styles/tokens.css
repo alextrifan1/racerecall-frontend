@@ -1,0 +1,64 @@
+/*
+ * Dotline design tokens.
+ * Copied from the Dotline design system (tokens.json, version 2).
+ * Dark is the default theme; <html data-theme="light"> switches to light.
+ * Use these variables in component CSS modules instead of hard-coded values.
+ */
+
+:root,
+[data-theme="dark"] {
+    /* Colour */
+    --ground: #050505;
+    --surface: #111111;
+    --surface-raised: #1c1c1c;
+    --ink: #fbfbf9;
+    --ink-muted: #a3a3a0;
+    --line: #2e2e2e;
+    --line-strong: #6b6b67;
+    --signal: #e02c24;
+    --signal-hover: #c4221a;
+    --signal-text: #ff4a3d;
+    --on-signal: #ffffff;
+    --sky: #8cc8e8;
+    --sky-hover: #a9d8f2;
+    --on-sky: #050505;
+    --sky-text: #8cc8e8;
+    --sky-haze: #8cc8e8;
+    --scrim: rgba(5, 5, 5, 0.78);
+}
+
+[data-theme="light"] {
+    --ground: #fbfbf9;
+    --surface: #f0efeb;
+    --surface-raised: #e6e5e0;
+    --ink: #050505;
+    --ink-muted: #5c5c57;
+    --line: #d4d3cd;
+    --line-strong: #8a8a85;
+    --signal-text: #c4221a;
+    --sky-text: #1e36a8;
+    --sky-haze: #1e36a8;
+    --scrim: rgba(5, 5, 5, 0.55);
+}
+
+:root {
+    /* Type families (loaded from Google Fonts in index.html) */
+    --font-display: Doto, "IBM Plex Mono", ui-monospace, monospace;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --font-ui: Outfit, system-ui, sans-serif;
+
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-12: 48px;
+    --space-16: 64px;
+
+    /* Radius: square by default, only controls are round */
+    --radius-none: 0;
+    --radius-dot: 2px;
+    --radius-pill: 9999px;
+}
