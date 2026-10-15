@@ -1,16 +1,24 @@
 import styles from './SeasonBrowser.module.css';
 import TrackMap from '../TrackMap.jsx';
-import { formatDateTime, getSessionColor } from './seasonHelpers';
+import { formatDateTime } from './seasonHelpers';
 
 export default function SessionCard({ session, isMainRace, circuitName, onClick }) {
+    // The API types sprints as "Race" too: only the Grand Prix itself gets the red dot
+    const isGrandPrix = session.session_type === 'Race' && session.session_name === 'Race';
+    const typeLabel = session.session_name === 'Sprint' ? 'Sprint' : session.session_type;
+
     return (
-        <div
+        <button
+            type="button"
             className={`${styles.sessionCard} ${isMainRace ? styles.featuredCard : ''}`}
-            style={{ '--accent-color': getSessionColor(session.session_type) }}
             onClick={() => onClick(session)}
         >
-            <div className={styles.sessionName}>{session.session_name}</div>
-            <div className={styles.sessionDate}>{formatDateTime(session.date_start)}</div>
+            <span className={styles.sessionType}>
+                {isGrandPrix && <span className={styles.raceDot} aria-hidden="true" />}
+                {typeLabel}
+            </span>
+            <span className={styles.sessionName}>{session.session_name}</span>
+            <span className={styles.sessionDate}>{formatDateTime(session.date_start)}</span>
 
             {isMainRace && circuitName && (
                 <TrackMap
@@ -18,6 +26,6 @@ export default function SessionCard({ session, isMainRace, circuitName, onClick 
                     className={styles.trackWatermark}
                 />
             )}
-        </div>
+        </button>
     );
 }

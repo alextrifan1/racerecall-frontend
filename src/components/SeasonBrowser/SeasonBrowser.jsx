@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SessionModal from '../SessionModal/SessionModal.jsx';
 import WeekendGroup from './WeekendGroup.jsx';
 import styles from './SeasonBrowser.module.css';
@@ -21,16 +21,22 @@ export default function SeasonBrowser() {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h2>Formula 1 - {year} Season</h2>
-                <select value={year} onChange={handleYearChange} className={styles.select}>
-                    <option value={2023}>2023</option>
-                    <option value={2024}>2024</option>
-                    <option value={2025}>2025</option>
-                    <option value={2026}>2026</option>
-                </select>
+                <div>
+                    <p className={styles.eyebrow}>Formula 1 // Season</p>
+                    <h1 className={styles.year}>{year}</h1>
+                </div>
+                <label className={styles.selectWrap}>
+                    <span className={styles.srOnly}>Season</span>
+                    <select value={year} onChange={handleYearChange} className={styles.select}>
+                        <option value={2023}>2023</option>
+                        <option value={2024}>2024</option>
+                        <option value={2025}>2025</option>
+                        <option value={2026}>2026</option>
+                    </select>
+                </label>
             </div>
 
-            {loading && <div className={styles.loader}>Loading season data...</div>}
+            {loading && <p className={styles.status}>Loading season data...</p>}
 
             {error && (
                 <div className={styles.errorText}>
@@ -39,7 +45,7 @@ export default function SeasonBrowser() {
             )}
 
             {!loading && !error && sessions.length === 0 && (
-                <p className={styles.errorText}>
+                <p className={styles.status}>
                     No sessions available right now. The API is likely locked due to an active F1 race weekend. Try again later!
                 </p>
             )}
@@ -64,7 +70,7 @@ export default function SeasonBrowser() {
                 >
                     Previous
                 </button>
-                <span className={styles.pageInfo}>Page {page + 1}</span>
+                <span className={styles.pageInfo}>Page // {page + 1}</span>
                 <button
                     onClick={() => setPage(page + 1)}
                     disabled={Object.keys(groupedWeekends).length < 4 || loading}

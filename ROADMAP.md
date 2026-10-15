@@ -93,7 +93,7 @@ The app moves to the Dotline design system one component per step, staying in th
   Square card with no shadow, `signal` pill submit button, `line-strong` input borders, `sky-text` focus ring, Outfit for form text, errors in `signal-text`.
 - [ ] **4. Session modal** · M
   Square dialog with a red top rule over a flat `scrim`; podium rows as listings (`P1 // G RUSSELL`, team underneath in `ink-muted`); optionally dot counts for position.
-- [ ] **5. Season browser** · M
+- [x] **5. Season browser** · M
   Year in Doto as the page's one headline; weekends as listing rows (`09/19 // SINGAPORE`); replace the coloured left strips with a mono session-type label and a red dot for the race; square panels, no shadows.
 - [ ] **6. Dark theme and dot wave** · M
   Switch `data-theme` to `dark`; animated `DotField` behind the season header, with still pixels when reduced motion is on.

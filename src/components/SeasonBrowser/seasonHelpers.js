@@ -11,18 +11,22 @@ export const getCountryCode = (countryName) => {
     return map[countryName] || "un";
 };
 
+// "2025-10-03T09:30:00+00:00" -> "10/03"
+export const formatShortDate = (dateString) =>
+    new Date(dateString).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' });
+
+// "2025-10-03T09:30:00+00:00" -> "10/03 // 12:30" (in the visitor's time zone)
 export const formatDateTime = (dateString) => {
     const date = new Date(dateString);
-    const datePart = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     const timePart = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
-    return `${datePart} • ${timePart}`;
+    return `${formatShortDate(dateString)} // ${timePart}`;
 };
 
-export const getSessionColor = (sessionType) => {
-    if (!sessionType) return '#219EBC';
-    if (sessionType === 'Race') return '#FFB703';
-    if (sessionType.includes('Qualifying')) return '#023047';
-    if (sessionType.includes('Practice')) return '#219EBC';
-    if (sessionType.includes('Sprint')) return '#8ECAE6';
-    return '#219EBC';
+// First and last session of a weekend -> "10/03–10/05"
+export const formatWeekendRange = (sessions) => {
+    const dates = sessions.map((s) => s.date_start).filter(Boolean).sort();
+    if (dates.length === 0) return '';
+    const first = formatShortDate(dates[0]);
+    const last = formatShortDate(dates[dates.length - 1]);
+    return first === last ? first : `${first}–${last}`;
 };
