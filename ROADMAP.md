@@ -89,7 +89,7 @@ The app moves to the Dotline design system one component per step, staying in th
   Dotline tokens as CSS variables in `src/styles/tokens.css` (both themes), Doto / IBM Plex Mono / Outfit loaded from Google Fonts, `data-theme="light"` on `<html>`. No visible change.
 - [x] **2. Navbar** · S
   Red bar mark with the name in Doto, numbered mono nav link with a red underline when active, pill buttons (`signal` Register, `ghost` Sign in, `raised` Sign out), no shadows.
-- [ ] **3. Auth pages** · S
+- [x] **3. Auth pages** · S
   Square card with no shadow, `signal` pill submit button, `line-strong` input borders, `sky-text` focus ring, Outfit for form text, errors in `signal-text`.
 - [ ] **4. Session modal** · M
   Square dialog with a red top rule over a flat `scrim`; podium rows as listings (`P1 // G RUSSELL`, team underneath in `ink-muted`); optionally dot counts for position.

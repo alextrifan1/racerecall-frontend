@@ -6,6 +6,10 @@ import PodiumList from "./PodiumList.jsx";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
+// "2025-09-21T12:00:00+00:00" -> "09/21"
+const formatShortDate = (dateString) =>
+    new Date(dateString).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' });
+
 export default function SessionModal({ session, onClose }) {
     const [details, setDetails] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -30,21 +34,26 @@ export default function SessionModal({ session, onClose }) {
 
     return (
         <ModalFrame isOpen={!!session} onClose={onClose}>
-            <h2>{session.session_name}</h2>
-            <p><strong>Circuit:</strong> {session.circuit_short_name} ({session.country_name})</p>
+            <div className={styles.head}>
+                <p className={styles.eyebrow}>
+                    {formatShortDate(session.date_start)} // {session.country_name}
+                </p>
+                <h2 className={styles.title}>{session.session_name}</h2>
+                <p className={styles.circuit}>{session.circuit_short_name}</p>
+            </div>
 
-            <hr style={{ margin: '15px 0', border: '0.5px solid #eee' }} />
-
-            {loading ? (
-                <div className={styles.loader}>Loading session details...</div>
-            ) : details ? (
-                <>
-                    <WeatherSnapshot weather={details.weatherSnapshot} />
-                    <PodiumList podium={details.podium} />
-                </>
-            ) : (
-                <div className={styles.loader}>Failed to load details.</div>
-            )}
+            <div className={styles.body}>
+                {loading ? (
+                    <p className={styles.status}>Loading session details...</p>
+                ) : details ? (
+                    <>
+                        <WeatherSnapshot weather={details.weatherSnapshot} />
+                        <PodiumList podium={details.podium} />
+                    </>
+                ) : (
+                    <p className={styles.status}>Failed to load details.</p>
+                )}
+            </div>
         </ModalFrame>
     );
 }

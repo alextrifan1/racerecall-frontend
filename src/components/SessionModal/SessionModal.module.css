@@ -1,123 +1,220 @@
+/* Session modal in the Dotline "Modal" style: square dialog with a red top
+   rule over a flat scrim, listings for the podium. No shadows, no blur. */
+
 .modalOverlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    inset: 0;
     z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: var(--space-4);
+    background-color: var(--scrim);
 }
 
 .modalContent {
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     position: relative;
+    width: 100%;
+    max-width: 480px;
+    max-height: calc(100vh - 2 * var(--space-4));
+    overflow-y: auto;
+    background-color: var(--ground);
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+    border-top: 6px solid var(--signal);
+    border-radius: var(--radius-none);
 }
 
+/* Close: 40px round ghost icon button */
 .closeButton {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    background-color: transparent;
+    color: var(--ink);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
     cursor: pointer;
-    color: #666;
+    transition: background-color 0.15s ease;
+}
+
+.closeButton svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: square;
 }
 
 .closeButton:hover {
-    color: #d9534f;
+    background-color: var(--surface-raised);
 }
 
-.button {
-    width: 100%;
-    margin-top: 20px;
-    padding: 10px 16px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.2s;
+.closeButton:focus-visible {
+    outline: 2px solid var(--sky-text);
+    outline-offset: 2px;
 }
 
-.button:hover {
-    background-color: #0056b3;
+/* Head: DATE // COUNTRY, session name in Doto, circuit underneath */
+.head {
+    padding: var(--space-6) var(--space-16) 0 var(--space-6);
 }
 
-.loader {
-    text-align: center;
-    padding: 20px;
-    color: #666;
-    font-style: italic;
+.eyebrow {
+    margin-bottom: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
 }
 
-.sectionTitle {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-    color: #333;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 5px;
-}
-
-.weatherGrid {
-    display: flex;
-    gap: 15px;
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.weatherItem {
-    flex: 1;
-    text-align: center;
-}
-
-.weatherValue {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #007bff;
-}
-
-.weatherLabel {
-    font-size: 0.85rem;
-    color: #666;
+.title {
+    margin-bottom: var(--space-2);
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
 }
 
+.circuit {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--ink-muted);
+}
+
+.body {
+    padding: var(--space-6);
+}
+
+.status {
+    padding: var(--space-6) 0;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--ink-muted);
+}
+
+.section + .section {
+    margin-top: var(--space-8);
+}
+
+.sectionTitle {
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+}
+
+/* Weather: three counters split by hairlines */
+.weatherGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.weatherItem {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+}
+
+.weatherItem:first-child {
+    padding-left: 0;
+}
+
+.weatherItem + .weatherItem {
+    border-left: 1px solid var(--line);
+}
+
+.weatherValue {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.weatherLabel {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+}
+
+/* Podium: Dotline listings, "P1 // NAME" over a dot column + team */
 .podiumList {
     list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 .podiumItem {
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+}
+
+.podiumHead {
     display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
+    gap: var(--space-2);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
-.podiumItem:last-child {
-    border-bottom: none;
+.sep {
+    color: var(--ink-muted);
 }
 
-.position {
-    font-weight: bold;
-    color: #d4af37;
-    width: 30px;
+.podiumDetail {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    align-items: center;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--ink-muted);
 }
 
-.podiumItem:nth-child(2) .position { color: #c0c0c0; }
-.podiumItem:nth-child(3) .position { color: #cd7f32; }
+.dots {
+    display: inline-flex;
+    gap: var(--space-1);
+}
+
+.dots i {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-pill);
+    background-color: var(--signal);
+}
+
+@media (max-width: 420px) {
+    .title,
+    .weatherValue {
+        font-size: 26px;
+    }
+
+    .weatherItem {
+        padding: var(--space-2) var(--space-3);
+    }
+}

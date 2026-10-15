@@ -1,22 +1,31 @@
 import styles from './SessionModal.module.css';
 
-export default function PodiumList({podium}) {
+export default function PodiumList({ podium }) {
     if (!podium || podium.length === 0) return null;
 
     return (
-        <>
-            <h3 className={styles.sectionTitle}>Top 3 Finishers</h3>
+        <section className={styles.section}>
+            <h3 className={styles.sectionTitle}>Top 3 finishers</h3>
             <ul className={styles.podiumList}>
                 {podium.map((driver) => (
                     <li key={driver.driver_number} className={styles.podiumItem}>
-                        <div>
-                            <span className={styles.position}>P{driver.position} </span>
-                            <strong>{driver.broadcast_name}</strong>
+                        <div className={styles.podiumHead}>
+                            <span>P{driver.position}</span>
+                            <span className={styles.sep}>//</span>
+                            <span>{driver.broadcast_name}</span>
                         </div>
-                        <span style={{ color: '#666', fontSize: '0.9rem' }}>{driver.team_name}</span>
+                        <div className={styles.podiumDetail}>
+                            {/* Dots as data: one red dot per finishing position */}
+                            <span className={styles.dots} aria-hidden="true">
+                                {Array.from({ length: driver.position }, (_, i) => (
+                                    <i key={i} />
+                                ))}
+                            </span>
+                            <span>{driver.team_name}</span>
+                        </div>
                     </li>
                 ))}
             </ul>
-        </>
-    )
+        </section>
+    );
 }
