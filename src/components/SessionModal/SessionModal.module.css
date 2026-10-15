@@ -218,3 +218,36 @@
         padding: var(--space-2) var(--space-3);
     }
 }
+
+/* Starting grid: compact listing rows, P01 // NAME .... Team */
+.gridList {
+    list-style: none;
+}
+
+.gridItem {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.gridPos {
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+}
+
+.gridName {
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.gridTeam {
+    color: var(--ink-muted);
+    text-align: right;
+}
