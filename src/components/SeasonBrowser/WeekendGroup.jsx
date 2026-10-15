@@ -15,9 +15,12 @@ export default function WeekendGroup({ weekend, onSessionClick }) {
         return type === 'Race' || name === 'Sprint';
     });
 
+    // No race and no sprint: a testing event (e.g. pre-season testing, Day 1–3)
+    const isTesting = mainEvents.length === 0;
+
     return (
         <section className={styles.weekendGroup}>
-            {/* Listing header: DATES // COUNTRY, then the Grand Prix name */}
+            {/* Listing header: DATES // COUNTRY, then the event name */}
             <div className={styles.weekendHeader}>
                 <p className={styles.weekendHead}>
                     <span>{formatWeekendRange(weekend.sessions)}</span>
@@ -30,13 +33,15 @@ export default function WeekendGroup({ weekend, onSessionClick }) {
                         alt=""
                         className={styles.flag}
                     />
-                    {weekend.circuitName} Grand Prix
+                    {isTesting
+                        ? `Pre-season testing at ${weekend.circuitName}`
+                        : `${weekend.circuitName} Grand Prix`}
                 </p>
             </div>
 
-            <div className={styles.sessionStrip}>
-                {/* left side */}
-                <div className={styles.sessionStack}>
+            {isTesting ? (
+                /* Testing: all sessions in one row, full width */
+                <div className={styles.testingStrip}>
                     {supportSessions.map((session) => (
                         <SessionCard
                             key={session.session_key}
@@ -45,20 +50,33 @@ export default function WeekendGroup({ weekend, onSessionClick }) {
                         />
                     ))}
                 </div>
+            ) : (
+                <div className={styles.sessionStrip}>
+                    {/* left side */}
+                    <div className={styles.sessionStack}>
+                        {supportSessions.map((session) => (
+                            <SessionCard
+                                key={session.session_key}
+                                session={session}
+                                onClick={onSessionClick}
+                            />
+                        ))}
+                    </div>
 
-                {/* right side */}
-                <div className={styles.sessionStack}>
-                    {mainEvents.map((session) => (
-                        <SessionCard
-                            key={session.session_key}
-                            session={session}
-                            isMainRace={session.session_type === 'Race'}
-                            circuitName={weekend.circuitName}
-                            onClick={onSessionClick}
-                        />
-                    ))}
+                    {/* right side */}
+                    <div className={styles.sessionStack}>
+                        {mainEvents.map((session) => (
+                            <SessionCard
+                                key={session.session_key}
+                                session={session}
+                                isMainRace={session.session_type === 'Race'}
+                                circuitName={weekend.circuitName}
+                                onClick={onSessionClick}
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            )}
         </section>
     );
 }
