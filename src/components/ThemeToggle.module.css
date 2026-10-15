@@ -1,0 +1,35 @@
+/* Theme toggle: Dotline's 40px round ghost icon button with a line icon */
+
+.toggle {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: transparent;
+    color: var(--ink);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.toggle:hover {
+    background-color: var(--surface-raised);
+}
+
+.toggle:focus-visible {
+    outline: 2px solid var(--sky-text);
+    outline-offset: 2px;
+}
+
+.toggle svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: square;
+    stroke-linejoin: round;
+}

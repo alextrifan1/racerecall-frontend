@@ -11,6 +11,21 @@
       href="https://fonts.googleapis.com/css2?family=Doto:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap"
     />
     <title>racerecall-frontend</title>
+    <script>
+      // Apply the theme before the page draws, so it never flashes the wrong one:
+      // the visitor's saved choice, otherwise their device setting (dark if unknown).
+      (function () {
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme !== 'light' && theme !== 'dark') {
+            theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          }
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          // Storage blocked: keep the default from the <html> tag
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
