@@ -102,7 +102,12 @@
     text-transform: uppercase;
 }
 
+/* Long usernames end in "…" instead of pushing the buttons off-screen */
 .userName {
+    max-width: 16ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: var(--ink);
 }
 
@@ -175,6 +180,10 @@
     .index,
     .userLabel {
         display: none;
+    }
+
+    .userName {
+        max-width: 8ch;
     }
 }
 

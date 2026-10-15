@@ -37,7 +37,7 @@ export const Navbar = () => {
                         <>
                             <span className={styles.user}>
                                 <span className={styles.userLabel}>Driver //</span>
-                                <span className={styles.userName}>{username}</span>
+                                <span className={styles.userName} title={username}>{username}</span>
                             </span>
                             <button
                                 type="button"
