@@ -19,7 +19,7 @@
     padding: 0 var(--space-6);
 }
 
-/* Brand: three red bars + name in the dot-matrix display face */
+/* Brand: the A.T. mark + name in the dot-matrix display face */
 .brand {
     display: inline-flex;
     align-items: center;
@@ -35,26 +35,10 @@
     white-space: nowrap;
 }
 
+/* The mark is 24px, about the height of the name's capitals */
 .mark {
-    display: inline-flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.mark i {
+    flex: none;
     display: block;
-    width: 18px;
-    height: 5px;
-    border-radius: var(--radius-dot);
-    background-color: var(--signal);
-}
-
-.mark i:nth-child(2) {
-    width: 12px;
-}
-
-.mark i:nth-child(3) {
-    width: 6px;
 }
 
 /* Numbered mono links; the active one turns ink with a red underline */
@@ -196,7 +180,7 @@
 
 @media (max-width: 420px) {
     .brand {
-        font-size: 0; /* keep only the red bar mark */
+        font-size: 0; /* keep only the mark */
         gap: 0;
     }
 

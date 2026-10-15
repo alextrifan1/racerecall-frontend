@@ -1,6 +1,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ThemeToggle } from './ThemeToggle';
+import { Mark } from './Mark';
 import styles from './Navbar.module.css';
 
 export const Navbar = () => {
@@ -19,11 +20,7 @@ export const Navbar = () => {
         <header className={styles.header}>
             <div className={styles.bar}>
                 <Link to="/" className={styles.brand}>
-                    <span className={styles.mark} aria-hidden="true">
-                        <i />
-                        <i />
-                        <i />
-                    </span>
+                    <Mark size={24} decorative className={styles.mark} />
                     RaceRecall
                 </Link>
 
