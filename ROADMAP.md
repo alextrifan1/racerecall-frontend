@@ -53,26 +53,26 @@ Planned improvements for both repos, plus the gradual move to the Dotline design
 
 - [ ] **Show the login error instead of reloading the page** · High · S
   A wrong password returns 401, and the Axios response interceptor in `src/api/axios.js` treats every 401 as an expired token: it clears storage and reloads `/login`, so "Invalid username or password" is never shown. Skip the redirect for `/api/auth/` requests.
-- [ ] **Check that refreshing `/login` works on the live site** · High if broken · S
-  There is no `vercel.json`. If refresh gives a 404, add a rewrite rule that sends every path to `index.html`.
+- [x] **Refreshing `/login` or `/register` works on Vercel** · High if broken · S
+  `vercel.json` rewrites every path that isn't a real file to `index.html`.
 - [x] **Fix session modal error handling** · High · S
   - [x] Clear `details` when a fetch starts or fails (today a failed fetch shows the previous session's data)
   - [x] Treat a non-200 response as an error instead of parsing it as data
   - [x] Cancel the previous request with an `AbortController` when another session is clicked
 - [x] **Show the starting grid in the session modal** · High · S
   The backend already returns it as `startingGrid`.
-- [ ] **Make the modal keyboard-friendly** · Medium · S
+- [x] **Make the modal keyboard-friendly** · Medium · S
   Close on Escape, `role="dialog"` with `aria-modal`, move focus into the modal when it opens.
 - [ ] **One API layer** · Medium · S
   Move the `fetch` calls into `src/api/sessions.js` using the existing Axios instance.
 - [ ] **Handle expired tokens** · Medium · S
   Read the token's `exp` on load and log out when it has passed.
 - [ ] **Small cleanups** · Low · S
-  - [ ] Page title `racerecall-frontend` → `RaceRecall`
+  - [x] Page title `racerecall-frontend` → `RaceRecall`
   - [ ] Delete the unused template assets (`hero.png`, `react.svg`, `vite.svg`)
-  - [ ] Generate the year dropdown up to the current year
+  - [x] Generate the year dropdown up to the current year
   - [x] Fix "Next" opening an empty page when the last page has exactly 4 weekends
-  - [ ] Fix the remaining ESLint errors (4 left: unused `React` imports in `App.jsx`, `ProtectedRoute.jsx`, `AuthContext.jsx`, and `useAuth` exported next to a component)
+  - [x] Fix the ESLint errors (`npm run lint` is clean)
 - [ ] **Put state in the URL** · Medium · M
   Year and page as query params so refresh and the back button work; a `/session/:key` route for shareable sessions.
 - [x] **Loading skeletons** · Low · M
@@ -80,6 +80,10 @@ Planned improvements for both repos, plus the gradual move to the Dotline design
   Vitest and React Testing Library, starting with `useSeasonData`'s grouping and the auth forms.
 - [ ] **Favorites page** · Feature · M
   Depends on backend favorites. Uses `ProtectedRoute`.
+- [x] **Bug fixes**
+  - [x] Long usernames end in "…" in the navbar instead of pushing Sign out off-screen
+  - [x] Unknown countries show no flag instead of the UN flag
+  - [x] Cancelled race weekends show "Race not held" instead of being labelled as testing (testing is detected by its "Day N" session names)
 - [x] **Season page UI pass**
   - [x] Whole season loaded once, paged client-side; opens on the page with the next session
   - [x] Round numbers (`R03 // …`); testing weeks unnumbered and laid out in one row
