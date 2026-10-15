@@ -63,12 +63,12 @@ export default function SessionModal({ session, onClose }) {
     }
 
     return (
-        <ModalFrame isOpen={!!session} onClose={onClose}>
+        <ModalFrame isOpen={!!session} onClose={onClose} titleId="session-modal-title">
             <div className={styles.head}>
                 <p className={styles.eyebrow}>
                     {formatShortDate(session.date_start)} // {session.country_name}
                 </p>
-                <h2 className={styles.title}>{session.session_name}</h2>
+                <h2 id="session-modal-title" className={styles.title}>{session.session_name}</h2>
                 <p className={styles.circuit}>{session.circuit_short_name}</p>
             </div>
 

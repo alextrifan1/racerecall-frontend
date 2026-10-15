@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import SessionModal from '../SessionModal/SessionModal.jsx';
 import DotField from '../DotField/DotField.jsx';
 import WeekendGroup from './WeekendGroup.jsx';
@@ -33,6 +33,9 @@ export default function SeasonBrowser() {
     const page = Math.min(pickedPage ?? currentRoundPage, totalPages - 1);
 
     const pageWeekends = weekends.slice(page * WEEKENDS_PER_PAGE, (page + 1) * WEEKENDS_PER_PAGE);
+
+    // Stable function, so the modal's keyboard/focus effect doesn't re-run on every render
+    const closeModal = useCallback(() => setSelectedSession(null), []);
 
     const handleYearChange = (e) => {
         setYear(parseInt(e.target.value));
@@ -117,7 +120,7 @@ export default function SeasonBrowser() {
 
             <SessionModal
                 session={selectedSession}
-                onClose={() => setSelectedSession(null)}
+                onClose={closeModal}
             />
         </div>
     );
