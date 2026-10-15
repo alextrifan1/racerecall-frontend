@@ -1,12 +1,15 @@
 /*
  * Dotline design tokens.
  * Copied from the Dotline design system (tokens.json, version 2).
- * Dark is the default theme; <html data-theme="light"> switches to light.
+ * Dark is the default theme (set on <html> in index.html); data-theme="light" switches to light.
  * Use these variables in component CSS modules instead of hard-coded values.
  */
 
 :root,
 [data-theme="dark"] {
+    /* Native controls (select menus, scrollbars) follow the theme */
+    color-scheme: dark;
+
     /* Colour */
     --ground: #050505;
     --surface: #111111;
@@ -28,6 +31,8 @@
 }
 
 [data-theme="light"] {
+    color-scheme: light;
+
     --ground: #fbfbf9;
     --surface: #f0efeb;
     --surface-raised: #e6e5e0;
