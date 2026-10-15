@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import styles from './Navbar.module.css';
 
@@ -12,41 +11,55 @@ export const Navbar = () => {
         navigate('/login');
     };
 
+    const navLinkClass = ({ isActive }) =>
+        isActive ? `${styles.navLink} ${styles.active}` : styles.navLink;
+
     return (
-        <nav className={styles.navbar}>
-            <div className={styles.brandGroup}>
-                <span className={styles.brandDot} />
-                <Link to="/" className={styles.brandLink}>
+        <header className={styles.header}>
+            <div className={styles.bar}>
+                <Link to="/" className={styles.brand}>
+                    <span className={styles.mark} aria-hidden="true">
+                        <i />
+                        <i />
+                        <i />
+                    </span>
                     RaceRecall
                 </Link>
-            </div>
 
-            <div className={styles.navLinks}>
-                <Link to="/" className={styles.link}>
-                    Seasons
-                </Link>
+                <nav className={styles.nav} aria-label="Main">
+                    <NavLink to="/" end className={navLinkClass}>
+                        <span className={styles.index}>01</span>
+                        Seasons
+                    </NavLink>
+                </nav>
 
-                {isAuthenticated ? (
-                    <>
-                        <div className={styles.userBadge}>
-                            <span>Driver:</span>
-                            <span className={styles.userName}>{username}</span>
-                        </div>
-                        <button onClick={handleLogout} className={styles.logoutBtn}>
-                            Sign out
-                        </button>
-                    </>
-                ) : (
-                    <div className={styles.authGroup}>
-                        <Link to="/login" className={styles.signInLink}>
-                            Sign in
-                        </Link>
-                        <Link to="/register" className={styles.registerBtn}>
-                            Register
-                        </Link>
-                    </div>
-                )}
+                <div className={styles.end}>
+                    {isAuthenticated ? (
+                        <>
+                            <span className={styles.user}>
+                                <span className={styles.userLabel}>Driver //</span>
+                                <span className={styles.userName}>{username}</span>
+                            </span>
+                            <button
+                                type="button"
+                                onClick={handleLogout}
+                                className={`${styles.btn} ${styles.btnRaised}`}
+                            >
+                                Sign out
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login" className={`${styles.btn} ${styles.btnGhost}`}>
+                                Sign in
+                            </Link>
+                            <Link to="/register" className={`${styles.btn} ${styles.btnSignal}`}>
+                                Register
+                            </Link>
+                        </>
+                    )}
+                </div>
             </div>
-        </nav>
+        </header>
     );
 };
