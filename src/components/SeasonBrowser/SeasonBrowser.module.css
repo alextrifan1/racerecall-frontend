@@ -182,7 +182,7 @@
     display: grid;
     grid-template-columns: 1fr 1.4fr;
     gap: var(--space-3);
-    align-items: stretch;
+    align-items: start;
 }
 
 .sessionStack {
@@ -288,9 +288,10 @@
     color: var(--ink-muted);
 }
 
-/* Race / sprint tile on the right: taller, name in Doto, track outline */
+/* Race / sprint tile on the right: name in Doto, track outline.
+   Sized to its content instead of stretching to the height of the left column. */
 .featuredCard {
-    flex: 1;
+    min-height: 152px;
     justify-content: flex-start;
     gap: var(--space-2);
     padding: var(--space-6);
