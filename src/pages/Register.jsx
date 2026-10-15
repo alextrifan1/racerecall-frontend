@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import styles from './Auth.module.css';
+import DotField from '../components/DotField/DotField.jsx';
 
 export const Register = () => {
     const [username, setUsername] = useState('');
@@ -44,68 +45,70 @@ export const Register = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.card}>
-                <div className={styles.header}>
-                    <p className={styles.eyebrow}>RaceRecall // New driver</p>
-                    <h1 className={styles.title}>Create account</h1>
-                    <p className={styles.subtitle}>Get started with your telemetry dashboard</p>
+        <DotField className={styles.backdrop} height="calc(100vh - 65px)">
+            <div className={styles.container}>
+                <div className={styles.card}>
+                    <div className={styles.header}>
+                        <p className={styles.eyebrow}>RaceRecall // New driver</p>
+                        <h1 className={styles.title}>Create account</h1>
+                        <p className={styles.subtitle}>Get started with your telemetry dashboard</p>
+                    </div>
+
+                    {error && <div className={styles.errorMessage}>{error}</div>}
+
+                    <form onSubmit={handleSubmit}>
+                        <div className={styles.formGroup}>
+                            <label htmlFor="reg-username">Username</label>
+                            <input
+                                id="reg-username"
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="Choose a username"
+                                autoComplete="username"
+                                required
+                            />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="reg-password">Password</label>
+                            <input
+                                id="reg-password"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="At least 6 characters"
+                                autoComplete="new-password"
+                                required
+                            />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="reg-confirm">Confirm password</label>
+                            <input
+                                id="reg-confirm"
+                                type="password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                placeholder="Repeat your password"
+                                autoComplete="new-password"
+                                required
+                            />
+                        </div>
+
+                        <button type="submit" className={styles.submitBtn} disabled={loading}>
+                            {loading ? 'Creating account...' : 'Create account'}
+                        </button>
+                    </form>
+
+                    <p className={styles.footer}>
+                        Already have an account?
+                        <Link to="/login" className={styles.link}>
+                            Sign in
+                        </Link>
+                    </p>
                 </div>
-
-                {error && <div className={styles.errorMessage}>{error}</div>}
-
-                <form onSubmit={handleSubmit}>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="reg-username">Username</label>
-                        <input
-                            id="reg-username"
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Choose a username"
-                            autoComplete="username"
-                            required
-                        />
-                    </div>
-
-                    <div className={styles.formGroup}>
-                        <label htmlFor="reg-password">Password</label>
-                        <input
-                            id="reg-password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="At least 6 characters"
-                            autoComplete="new-password"
-                            required
-                        />
-                    </div>
-
-                    <div className={styles.formGroup}>
-                        <label htmlFor="reg-confirm">Confirm password</label>
-                        <input
-                            id="reg-confirm"
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="Repeat your password"
-                            autoComplete="new-password"
-                            required
-                        />
-                    </div>
-
-                    <button type="submit" className={styles.submitBtn} disabled={loading}>
-                        {loading ? 'Creating account...' : 'Create account'}
-                    </button>
-                </form>
-
-                <p className={styles.footer}>
-                    Already have an account?
-                    <Link to="/login" className={styles.link}>
-                        Sign in
-                    </Link>
-                </p>
             </div>
-        </div>
+        </DotField>
     );
 };

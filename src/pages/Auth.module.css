@@ -1,13 +1,19 @@
 /* Login and Register in the Dotline style: a square panel with a hairline
    edge, mono labels, pill inputs and a signal pill button. No shadows. */
 
+/* Dot wave behind the whole page, edge to edge: the negative margins cancel
+   the page padding set on <main> in App.jsx (1rem top/bottom, 2rem sides) */
+.backdrop {
+    margin: -1rem calc(50% - 50vw);
+}
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 65px);
     width: 100%;
-    padding: var(--space-6) 0;
+    padding: var(--space-6) var(--space-4);
 }
 
 .card {

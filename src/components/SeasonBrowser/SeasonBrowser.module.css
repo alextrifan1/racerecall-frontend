@@ -134,7 +134,10 @@
 }
 
 .weekendHeader {
-    margin-bottom: var(--space-4);
+    display: inline-block;
+    margin: 0 0 var(--space-4) calc(-1 * var(--space-3));
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--ground);
 }
 
 .weekendHead {
@@ -292,6 +295,31 @@
     pointer-events: none;
 }
 
+/* ---------- Dot wave behind the list ---------- */
+
+/* The list area is the positioning box for the backdrop */
+.listArea {
+    position: relative;
+    padding-bottom: var(--space-16);
+}
+
+/* Full screen width, anchored to the bottom of the list, at most 900px tall
+   (keeps the canvas small enough to animate smoothly on phones). The field
+   fades in from clear at its top, so the dots grow toward the page bottom. */
+.listBackdrop {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 50vw);
+    right: calc(50% - 50vw);
+    height: min(100%, 900px);
+    pointer-events: none;
+}
+
+/* Everything readable sits above the dots; tiles have a solid ground fill */
+.listContent {
+    position: relative;
+}
+
 /* ---------- Pagination ---------- */
 
 .pagination {
@@ -303,6 +331,9 @@
 }
 
 .pageInfo {
+    padding: var(--space-2) var(--space-3);
+    white-space: nowrap;
+    background-color: var(--ground);
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 500;
@@ -316,7 +347,7 @@
 .button {
     height: 40px;
     padding: 0 var(--space-6);
-    background-color: transparent;
+    background-color: var(--ground);
     color: var(--ink);
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-pill);
@@ -336,8 +367,10 @@
     outline-offset: 3px;
 }
 
+/* Disabled: muted colours rather than opacity, so the dots never show through */
 .button:disabled {
-    opacity: 0.45;
+    color: var(--ink-muted);
+    border-color: var(--line);
     cursor: not-allowed;
 }
 
@@ -350,5 +383,9 @@
 
     .year {
         font-size: 48px;
+    }
+
+    .pagination {
+        gap: var(--space-2);
     }
 }

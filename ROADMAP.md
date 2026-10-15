@@ -95,5 +95,7 @@ The app moves to the Dotline design system one component per step, staying in th
   Square dialog with a red top rule over a flat `scrim`; podium rows as listings (`P1 // G RUSSELL`, team underneath in `ink-muted`); optionally dot counts for position.
 - [x] **5. Season browser** · M
   Year in Doto as the page's one headline; weekends as listing rows (`09/19 // SINGAPORE`); replace the coloured left strips with a mono session-type label and a red dot for the race; square panels, no shadows.
-- [ ] **6. Dark theme and dot wave** · M
-  Switch `data-theme` to `dark`; animated `DotField` behind the season header, with still pixels when reduced motion is on.
+- [x] **6. Dot wave** · M
+  Animated `DotField` (still pixels when reduced motion is on): behind the sign-in and register pages, and rising behind the last weekends and pagination on the season page. Text always sits on a solid patch, never on the dots.
+- [ ] **7. Dark theme** · S
+  Switch `data-theme` to `dark` in `index.html`; check every page in both themes.

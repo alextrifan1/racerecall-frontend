@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SessionModal from '../SessionModal/SessionModal.jsx';
+import DotField from '../DotField/DotField.jsx';
 import WeekendGroup from './WeekendGroup.jsx';
 import styles from './SeasonBrowser.module.css';
 import {useSeasonData} from "./useSeasonData.js";
@@ -50,34 +51,43 @@ export default function SeasonBrowser() {
                 </p>
             )}
 
-            {!loading && !error && (
-                <div className={styles.weekendList}>
-                    {Object.entries(groupedWeekends).map(([location, weekend]) => (
-                        <WeekendGroup
-                            key={location}
-                            weekend={weekend}
-                            onSessionClick={setSelectedSession}
-                        />
-                    ))}
+            <div className={styles.listArea}>
+                {/* Dotline dot wave behind the lower part of the list, full screen width */}
+                <div className={styles.listBackdrop}>
+                    <DotField height="100%" />
                 </div>
-            )}
 
-            <div className={styles.pagination}>
-                <button
-                    onClick={() => setPage(page - 1)}
-                    disabled={page === 0 || loading}
-                    className={styles.button}
-                >
-                    Previous
-                </button>
-                <span className={styles.pageInfo}>Page // {page + 1}</span>
-                <button
-                    onClick={() => setPage(page + 1)}
-                    disabled={Object.keys(groupedWeekends).length < 4 || loading}
-                    className={styles.button}
-                >
-                    Next
-                </button>
+                <div className={styles.listContent}>
+                    {!loading && !error && (
+                        <div className={styles.weekendList}>
+                            {Object.entries(groupedWeekends).map(([location, weekend]) => (
+                                <WeekendGroup
+                                    key={location}
+                                    weekend={weekend}
+                                    onSessionClick={setSelectedSession}
+                                />
+                            ))}
+                        </div>
+                    )}
+
+                    <div className={styles.pagination}>
+                        <button
+                            onClick={() => setPage(page - 1)}
+                            disabled={page === 0 || loading}
+                            className={styles.button}
+                        >
+                            Previous
+                        </button>
+                        <span className={styles.pageInfo}>Page // {page + 1}</span>
+                        <button
+                            onClick={() => setPage(page + 1)}
+                            disabled={Object.keys(groupedWeekends).length < 4 || loading}
+                            className={styles.button}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <SessionModal
