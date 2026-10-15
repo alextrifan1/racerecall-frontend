@@ -5,6 +5,7 @@ import { getCountryCode, formatWeekendRange, formatRound, isMainEvent } from './
 export default function WeekendGroup({ weekend, nextSessionKey, onSessionClick }) {
     const supportSessions = weekend.sessions.filter((session) => !isMainEvent(session));
     const mainEvents = weekend.sessions.filter(isMainEvent);
+    const flagCode = getCountryCode(weekend.countryName);
 
     const card = (session, extra = {}) => (
         <SessionCard
@@ -32,11 +33,13 @@ export default function WeekendGroup({ weekend, nextSessionKey, onSessionClick }
                     <span>{weekend.countryName}</span>
                 </p>
                 <p className={styles.weekendDetail}>
-                    <img
-                        src={`https://flagcdn.com/24x18/${getCountryCode(weekend.countryName)}.png`}
-                        alt=""
-                        className={styles.flag}
-                    />
+                    {flagCode && (
+                        <img
+                            src={`https://flagcdn.com/24x18/${flagCode}.png`}
+                            alt=""
+                            className={styles.flag}
+                        />
+                    )}
                     {weekend.isTesting
                         ? `Pre-season testing at ${weekend.circuitName}`
                         : `${weekend.circuitName} Grand Prix`}

@@ -1,14 +1,18 @@
+// Country name from OpenF1 -> flagcdn code. Unknown countries get no flag
+// (null) rather than a wrong one; the name is written next to it anyway.
 export const getCountryCode = (countryName) => {
     const map = {
         "Bahrain": "bh", "Saudi Arabia": "sa", "Australia": "au",
         "Japan": "jp", "China": "cn", "United States": "us",
         "Italy": "it", "Monaco": "mc", "Canada": "ca",
         "Spain": "es", "Austria": "at", "Great Britain": "gb",
-        "Hungary": "hu", "Belgium": "be", "Netherlands": "nl",
-        "Singapore": "sg", "Azerbaijan": "az", "Mexico": "mx",
-        "Brazil": "br", "Qatar": "qa", "United Arab Emirates": "ae"
+        "United Kingdom": "gb", "Hungary": "hu", "Belgium": "be",
+        "Netherlands": "nl", "Singapore": "sg", "Azerbaijan": "az",
+        "Mexico": "mx", "Brazil": "br", "Qatar": "qa",
+        "United Arab Emirates": "ae", "Portugal": "pt", "France": "fr",
+        "Germany": "de", "Turkey": "tr"
     };
-    return map[countryName] || "un";
+    return map[countryName] ?? null;
 };
 
 // "2025-10-03T09:30:00+00:00" -> "10/03"
