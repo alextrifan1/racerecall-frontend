@@ -75,6 +75,10 @@ src/
 └── main.jsx              Entry point
 ```
 
+## Roadmap
+
+Planned improvements for the frontend and backend, and the step-by-step move to the Dotline design system, are tracked in [ROADMAP.md](ROADMAP.md).
+
 ## Deployment
 
 The app is deployed on Vercel. Set `VITE_API_URL` in the Vercel project's environment variables to the deployed backend URL. Vite reads it at build time, so redeploy after changing it.
