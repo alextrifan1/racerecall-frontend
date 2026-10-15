@@ -2,10 +2,20 @@ import { useState } from 'react';
 import SessionModal from '../SessionModal/SessionModal.jsx';
 import DotField from '../DotField/DotField.jsx';
 import WeekendGroup from './WeekendGroup.jsx';
+import SeasonSkeleton from './SeasonSkeleton.jsx';
 import styles from './SeasonBrowser.module.css';
 import {useSeasonData} from "./useSeasonData.js";
 
 const WEEKENDS_PER_PAGE = 4;
+
+// Session times are shown in the visitor's time zone: say which one.
+// e.g. "Europe/Bucharest" -> "Bucharest", plus the offset, e.g. "GMT+3"
+const TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+const TIME_ZONE_CITY = TIME_ZONE.split('/').pop().replace(/_/g, ' ');
+const TIME_ZONE_OFFSET = new Intl.DateTimeFormat('en-US', { timeZoneName: 'shortOffset' })
+    .formatToParts(new Date())
+    .find((part) => part.type === 'timeZoneName')?.value;
+const TIME_ZONE_LABEL = [TIME_ZONE_CITY, TIME_ZONE_OFFSET].filter(Boolean).join(', ');
 
 export default function SeasonBrowser() {
     const [year, setYear] = useState(2026);
@@ -36,6 +46,9 @@ export default function SeasonBrowser() {
                 <div>
                     <p className={styles.eyebrow}>Formula 1 // Season</p>
                     <h1 className={styles.year}>{year}</h1>
+                    <p className={styles.timeNote}>
+                        Times // Your local time{TIME_ZONE_LABEL && ` (${TIME_ZONE_LABEL})`}
+                    </p>
                 </div>
                 <label className={styles.selectWrap}>
                     <span className={styles.srOnly}>Season</span>
@@ -47,8 +60,6 @@ export default function SeasonBrowser() {
                     </select>
                 </label>
             </div>
-
-            {loading && <p className={styles.status}>Loading season data...</p>}
 
             {error && (
                 <div className={styles.errorText}>
@@ -69,6 +80,8 @@ export default function SeasonBrowser() {
                 </div>
 
                 <div className={styles.listContent}>
+                    {loading && <SeasonSkeleton />}
+
                     {!loading && !error && (
                         <div className={styles.weekendList}>
                             {pageWeekends.map((weekend) => (
