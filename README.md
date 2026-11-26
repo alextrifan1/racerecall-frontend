@@ -1,56 +1,65 @@
-# RaceRecall Frontend
+# RaceRecall — Frontend
 
-Web app for looking back at Formula 1 race weekends. Browse a season round by round, see what's coming up next, open any session for the conditions at the start, the podium and the starting grid, and create an account to sign in.
+[![CI](https://github.com/alextrifan1/racerecall-frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/alextrifan1/racerecall-frontend/actions/workflows/ci.yml)
 
-**Live:** https://racerecall-frontend.vercel.app/
-**Backend:** [racerecall-backend](https://github.com/alextrifan1/racerecall-backend) (Spring Boot REST API, data from [OpenF1](https://openf1.org))
+A web app for looking back at Formula 1 race weekends: browse a season round by round, see what's coming up next, and open any session for its conditions, podium and starting grid.
+
+**Live demo:** [racerecall-frontend.vercel.app](https://racerecall-frontend.vercel.app/)
+**Backend:** [racerecall-backend](https://github.com/alextrifan1/racerecall-backend) — Spring Boot REST API with data from [OpenF1](https://openf1.org)
+
+---
 
 ## Features
 
-- **Season browser:** pick any season from 2023 (the first year with OpenF1 data) to the current one and page through it, 4 weekends at a time. In-season it opens on the page with the next session.
-- **Weekends:** numbered rounds (`R03 // 03/06–03/08 // AUSTRALIA`) with the country flag and every session. Pre-season testing and race weekends with no race held are labelled as such and don't get a round number.
-- **Session status:** sessions that haven't run yet are marked upcoming, and the next one to start is highlighted. Times are shown in your local time zone.
-- **Session details:** click a session for the air and track temperature, rain, the podium and the starting grid. Works with the keyboard (Escape closes it).
-- **Light and dark themes:** follows your device setting on the first visit; the toggle in the navbar remembers your choice.
-- **Accounts:** register and sign in. The JWT returned by the backend is kept in `localStorage` and sent with API requests.
+- **Season browser** — every season from 2023 (the first year with OpenF1 data) to today, four weekends per page. During a season it opens on the page with the next session.
+- **Race weekends** — numbered rounds with country flags and every session. Pre-season testing and cancelled races are labelled and left unnumbered.
+- **Session status** — upcoming sessions are marked and the next one is highlighted. All times are shown in the visitor's time zone.
+- **Session details** — air and track temperature, rainfall, the podium and the full starting grid, in a keyboard-accessible dialog.
+- **Accounts** — register and sign in with JWT authentication.
+- **Light and dark themes** — follows the device setting on the first visit and remembers the visitor's choice, with no flash of the wrong theme.
 
 ## Tech stack
 
-- React 19 with Vite 8
-- React Router 7
-- Axios (auth requests) and the Fetch API (session data)
-- Plain CSS with CSS Modules, one stylesheet per component
-- Styled with [Dotline](#design), a personal design system: tokens as CSS variables, Doto / IBM Plex Mono / Outfit fonts
-- Deployed on Vercel
+| Area | Choice |
+|------|--------|
+| UI | React 19, React Router 7 |
+| Build | Vite 8 |
+| HTTP | Axios (auth), Fetch API (session data) |
+| Styling | Plain CSS Modules, one stylesheet per component, design tokens as CSS variables |
+| Quality | ESLint, GitHub Actions CI, Dependabot |
+| Hosting | Vercel |
 
-## Running locally
+## Getting started
 
 ### Prerequisites
 
-- Node.js 20.19+ or 22.12+ (required by Vite)
+- Node.js 22 (or 20.19+)
 - The [backend](https://github.com/alextrifan1/racerecall-backend) running locally, or the URL of a deployed instance
 
-### 1. Install dependencies
+### Install and run
 
 ```bash
+git clone https://github.com/alextrifan1/racerecall-frontend.git
+cd racerecall-frontend
 npm install
-```
-
-### 2. Point the app at the backend
-
-By default the app calls `http://localhost:8080`. To use a different backend, create a `.env.local` file in the project root (it is git-ignored):
-
-```env
-VITE_API_URL=https://your-backend-url.example.com
-```
-
-### 3. Start the dev server
-
-```bash
 npm run dev
 ```
 
-Open http://localhost:5173. The backend allows this origin by default, so no CORS setup is needed for local development.
+The app runs at http://localhost:5173 and calls the backend at `http://localhost:8080` by default. The backend allows this origin out of the box, so no CORS setup is needed.
+
+### Configuration
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `VITE_API_URL` | `http://localhost:8080` | Base URL of the backend API |
+
+To point at another backend, create a git-ignored `.env.local` file in the project root:
+
+```env
+VITE_API_URL=https://your-backend.example.com
+```
+
+Vite reads the variable at build time, so restart the dev server (or rebuild) after changing it.
 
 ## Scripts
 
@@ -65,37 +74,34 @@ Open http://localhost:5173. The backend allows this origin by default, so no COR
 
 ```
 src/
-├── api/axios.js            Axios instance: adds the JWT to requests, logs out on 401
-├── context/
-│   ├── AuthContext.jsx     AuthProvider: token, username, login, register, logout
-│   └── useAuth.js          The auth context and its useAuth hook
-├── styles/tokens.css       Dotline design tokens (colours, type, spacing) for both themes
-├── pages/                  Login and Register
+├── api/            Axios instance: attaches the JWT, handles 401 responses
+├── context/        Auth state (token, username, login, register, logout)
+├── pages/          Login and Register
 ├── components/
-│   ├── Navbar              Navigation, sign-in status and the theme toggle
-│   ├── Mark                The A.T. logo mark
-│   ├── ThemeToggle         Light/dark switch, saved in localStorage
-│   ├── DotField/           Animated dot-wave background (still pixels with reduced motion)
-│   ├── SeasonBrowser/      Season picker, pagination, weekend and session tiles
-│   │   ├── useSeasonData.js    Loads a whole season in one request
-│   │   ├── seasonHelpers.js    Groups sessions into weekends: rounds, testing, upcoming
-│   │   └── SeasonSkeleton.jsx  Placeholder tiles while a season loads
-│   ├── SessionModal/       Session details: weather, podium, starting grid
-│   └── TrackMap            Outlines for a few circuits (none for the rest)
-├── App.jsx                 Routes: /, /login, /register
-└── main.jsx                Entry point
+│   ├── SeasonBrowser/   Season page: data loading, weekend grouping, session tiles
+│   ├── SessionModal/    Session details dialog: weather, podium, starting grid
+│   ├── DotField/        Animated dot-wave background
+│   └── ...              Navbar, theme toggle, logo mark, track outlines
+├── styles/tokens.css    Design tokens for both themes
+├── App.jsx              Routes
+└── main.jsx             Entry point
 ```
+
+The season page loads a whole season in one request. `seasonHelpers.js` then groups the sessions into weekends, numbers the rounds and finds the next session, so paging happens on the client without further requests.
 
 ## Design
 
-The UI uses **Dotline**, a personal design system: dark-first, black/white/red with dot-matrix type, a pale-blue dot texture and the A.T. mark. Its tokens live in `src/styles/tokens.css` as CSS variables, with a `[data-theme="light"]` override; components use only those variables, so switching `data-theme` on `<html>` re-themes everything. A small script in `index.html` sets the theme before the page draws, so it never flashes the wrong one.
+The UI is built on **Dotline**, a personal design system: dark-first, black, white and red, with dot-matrix typography (Doto, IBM Plex Mono, Outfit). Components use only the tokens in `src/styles/tokens.css`; switching `data-theme` on `<html>` re-themes the whole app. An inline script in `index.html` applies the theme before the first paint.
 
-## Roadmap
+## Development workflow
 
-Planned improvements for the frontend and backend, and the step-by-step move to the Dotline design system, are tracked in [ROADMAP.md](ROADMAP.md).
+- Work is planned as issues on the [RaceRecall project board](https://github.com/users/alextrifan1/projects/N), shared with the backend.
+- `main` is protected: changes land through pull requests with a passing CI run, merged with squash.
+- Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `chore:`).
+- Dependabot opens weekly PRs for npm packages and GitHub Actions.
 
 ## Deployment
 
-The app is deployed on Vercel. Set `VITE_API_URL` in the Vercel project's environment variables to the deployed backend URL. Vite reads it at build time, so redeploy after changing it.
+Vercel deploys `main` to production and builds a preview for every pull request. Set `VITE_API_URL` in the Vercel project's environment variables to the deployed backend URL and redeploy after changing it.
 
-`vercel.json` sends every path that isn't a real file to `index.html`, so routes like `/login` work when opened or refreshed directly.
+`vercel.json` rewrites every path that isn't a static file to `index.html`, so client-side routes such as `/login` work when opened or refreshed directly.
