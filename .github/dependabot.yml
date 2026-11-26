@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # JavaScript dependencies from package.json
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      # minor and patch updates together in ONE PR, to avoid a flood of PRs
+      npm-minor-and-patch:
+        update-types: [minor, patch]
+
+  # Versions of the actions used in .github/workflows (checkout, setup-node...)
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "chore(deps)"
